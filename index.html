@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>CS232 HT2 – Tìm ảnh tương tự</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 1100px; margin: 2rem auto; padding: 0 1rem; color: #222; }
+  #drop { border: 2px dashed #aaa; border-radius: 8px; padding: 1.5rem; text-align: center; cursor: pointer; }
+  #drop.over { border-color: #2563eb; background: #eff6ff; }
+  #query { max-height: 220px; margin-top: 1rem; display: none; }
+  h3 { margin: 1.5rem 0 .5rem; }
+  .row { display: grid; grid-template-columns: repeat(5, 1fr); gap: .75rem; }
+  .row figure { margin: 0; text-align: center; font-size: .85rem; }
+  .row img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 6px; background: #eee; }
+  #status { color: #666; margin-top: .5rem; }
+</style>
+</head>
+<body>
+<h1>Tìm ảnh tương tự</h1>
+<div id="drop">Kéo thả hoặc bấm để chọn ảnh truy vấn<br><img id="query" alt=""></div>
+<input type="file" id="file" accept="image/*" hidden>
+<div id="status"></div>
+<div id="results"></div>
+
+<script>
+const $ = id => document.getElementById(id);
+const drop = $("drop"), file = $("file");
+
+drop.onclick = () => file.click();
+file.onchange = () => file.files[0] && search(file.files[0]);
+drop.ondragover = e => { e.preventDefault(); drop.classList.add("over"); };
+drop.ondragleave = () => drop.classList.remove("over");
+drop.ondrop = e => { e.preventDefault(); drop.classList.remove("over"); e.dataTransfer.files[0] && search(e.dataTransfer.files[0]); };
+
+function search(f) {
+  const reader = new FileReader();
+  reader.onload = async () => {
+    $("query").src = reader.result; $("query").style.display = "inline";
+    $("status").textContent = "Đang tìm…"; $("results").innerHTML = "";
+    try {
+      const r = await fetch("/search", { method: "POST", body: JSON.stringify({ image: reader.result }) });
+      const { names, results } = await r.json();
+      $("results").innerHTML = Object.entries(results).map(([m, items]) =>
+        `<h3>${names[m]}</h3><div class="row">` +
+        items.map((x, i) => `<figure><img src="/images/${x.file}"><figcaption>#${i + 1} · ID ${x.id} · ${x.score}</figcaption></figure>`).join("") +
+        `</div>`).join("");
+      $("status").textContent = "";
+    } catch (e) { $("status").textContent = "Lỗi: " + e; }
+  };
+  reader.readAsDataURL(f);
+}
+</script>
+</body>
+</html>
