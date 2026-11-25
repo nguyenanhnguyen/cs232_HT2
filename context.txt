@@ -1,0 +1,26 @@
+Bài tập Hình thức 2 của lớp là xây dựng hệ thống tìm ảnh tương tự từ một ảnh đầu vào. Mỗi nhóm chọn một ứng dụng thực tế, thu thập 50 ảnh và dùng 10 truy vấn có đáp án xác định trước để so sánh hai cách biểu diễn ảnh.
+
+- Đăng ký nhóm trước 23:59 thứ Sáu, 27/11. Các bạn có thể làm cá nhân hoặc tự ghép nhóm 2 người. Mỗi nhóm cử một bạn đăng ký. Danh sách sinh viên của lớp có ngay trong mục Đăng ký nhóm CS232 (https://courses.uit.edu.vn/mod/data/view.php?id=26157).
+
+- Nộp bài trước 23:59 thứ Bảy, 05/12. Một bạn đại diện nộp tệp ZIP gồm mã nguồn hoặc notebook, dữ liệu và kết quả kiểm thử. Dán thêm liên kết video demo tối đa 3 phút vào ô Văn bản trực tuyến. Yêu cầu chi tiết có tại Nộp bài CS232 (https://courses.uit.edu.vn/mod/assign/view.php?id=26160).
+
+- Trao đổi và demo trực tiếp trong buổi học thứ Bảy, 05/12. Mỗi nhóm có 1–2 phút để thử một ảnh đầu vào khác và giải thích kết quả. Các bạn chuẩn bị sẵn hệ thống để chạy tại lớp.
+
+Trong video, các bạn hãy giới thiệu ngắn gọn bài toán và minh họa một trường hợp hệ thống làm tốt, một trường hợp còn hạn chế.
+
+
+Yêu cầu
+Xây dựng hệ thống tìm ảnh tương tự từ một ảnh đầu vào. Chọn một nhu cầu thực tế và thu thập 50 ảnh làm tập tìm kiếm. Xác định tiêu chí tương tự phù hợp với nhu cầu, chẳng hạn cùng kiểu dáng hoặc cùng loại đối tượng.
+
+Chuẩn bị 10 truy vấn. Trước khi chạy so sánh, ghi ID của các ảnh phù hợp với từng truy vấn. So sánh hai cách biểu diễn ảnh, ví dụ histogram màu và embedding ảnh. Loại chính ảnh truy vấn khỏi danh sách kết quả nếu ảnh đó có trong tập tìm kiếm. Chạy hai phương pháp trên cùng bộ truy vấn, lưu 5 kết quả đầu và báo cáo Hit@5 (số truy vấn có ít nhất một ảnh đúng trong 5 kết quả đầu, trên tổng số 10 truy vấn).
+
+Bài nộp
+Mỗi nhóm 1–2 người cử một bạn nộp một tệp ZIP tại đây. Đăng ký thành viên tại HT2 28/11 – Đăng ký nhóm CS232. Tệp ZIP gồm:
+
+Mã nguồn hoặc notebook, kèm README ghi tên đề tài, thành viên và cách chạy.
+Bộ 50 ảnh và thông tin nguồn ảnh.
+Bảng 10 truy vấn, ID ảnh phù hợp, kết quả của hai phương pháp và nhận xét ngắn về một trường hợp hệ thống xử lý chưa tốt.
+Trình bày và demo
+Nộp video tối đa 3 phút, giới thiệu bài toán và chạy hai truy vấn, gồm một trường hợp làm tốt và một trường hợp còn hạn chế. Dán liên kết xem video vào ô Văn bản trực tuyến và cấp quyền xem cho giảng viên. Chuẩn bị thêm 1–2 phút trao đổi trực tiếp để thử một ảnh đầu vào khác và giải thích kết quả.
+
+Có thể dùng AI, thư viện và mô hình có sẵn. Mỗi thành viên cần giải thích được ít nhất một lựa chọn kỹ thuật hoặc một kết quả của nhóm. Phần đánh giá tập trung vào cách trình bày bài toán, demo và giải thích kết quả thực tế.
