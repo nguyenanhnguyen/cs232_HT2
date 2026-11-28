@@ -1,1 +1,11 @@
 query,class,relevant
+q01.jpg,bicycle,bicycle_01 bicycle_02 bicycle_03 bicycle_04 bicycle_05 bicycle_06 bicycle_07 bicycle_08 bicycle_09 bicycle_10
+q02.jpg,bicycle,bicycle_01 bicycle_02 bicycle_03 bicycle_04 bicycle_05 bicycle_06 bicycle_07 bicycle_08 bicycle_09 bicycle_10
+q03.jpeg,boat,boat_01 boat_02 boat_03 boat_04 boat_05 boat_06 boat_07 boat_08 boat_09 boat_10
+q04.jpg,boat,boat_01 boat_02 boat_03 boat_04 boat_05 boat_06 boat_07 boat_08 boat_09 boat_10
+q05.jpg,bus,bus_01 bus_02 bus_03 bus_04 bus_05 bus_06 bus_07 bus_08 bus_09 bus_10
+q06.jpg,bus,bus_01 bus_02 bus_03 bus_04 bus_05 bus_06 bus_07 bus_08 bus_09 bus_10
+q07.jpg,car,car_01 car_02 car_03 car_04 car_05 car_06 car_07 car_08 car_09 car_10
+q08.jpg,car,car_01 car_02 car_03 car_04 car_05 car_06 car_07 car_08 car_09 car_10
+q09.jpg,motorbike,motorbike_01 motorbike_02 motorbike_03 motorbike_04 motorbike_05 motorbike_06 motorbike_07 motorbike_08 motorbike_09 motorbike_10
+q10.jpg,motorbike,motorbike_01 motorbike_02 motorbike_03 motorbike_04 motorbike_05 motorbike_06 motorbike_07 motorbike_08 motorbike_09 motorbike_10

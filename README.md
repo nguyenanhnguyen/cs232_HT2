@@ -1,54 +1,65 @@
-# CS232 – HT2: Tìm ảnh phương tiện cùng loại trong điều kiện thiếu sáng
+# CS232 - HT2: Tìm ảnh phương tiện cùng loại trong điều kiện thiếu sáng
 
-**Thành viên:** _(Họ tên – MSSV)_
+Thành viên: (Họ tên - MSSV)
+
 
 ## Bài toán
-Người quản lý một kho ảnh chụp ban đêm có một ảnh phương tiện (vd. xe buýt) và muốn tìm các ảnh **cùng loại phương tiện** trong kho mà không phải xem từng tấm.
 
-- **Tiêu chí tương tự:** cùng loại phương tiện (xe đạp, thuyền, xe buýt, ô tô, xe máy); không xét màu, góc chụp hay ánh sáng.
-- **Câu hỏi so sánh:** trong ảnh thiếu sáng, màu chủ yếu đến từ ánh đèn chứ không phải từ đối tượng. Vậy histogram màu hay embedding CLIP tìm đúng loại phương tiện tốt hơn, và mỗi cách thất bại vì sao?
+Cho một ảnh phương tiện chụp trong điều kiện thiếu sáng, hệ thống tìm 5 ảnh cùng loại
+phương tiện trong một kho 50 ảnh.
+
+Tiêu chí tương tự: cùng loại phương tiện (xe đạp, thuyền, xe buýt, ô tô, xe máy),
+không xét màu sắc, góc chụp hay ánh sáng.
+
+Câu hỏi so sánh: trong ảnh tối, màu chủ yếu đến từ ánh đèn chứ không phải từ đối tượng.
+Histogram màu hay embedding CLIP tìm đúng loại phương tiện tốt hơn?
+
 
 ## Dữ liệu
-- **Nguồn:** ExDark – Loh, Y. P., & Chan, C. S. (2019). *Getting to know low-light images with the Exclusively Dark dataset.* CVIU, 178, 30–42. Tải từ: _(dán link Kaggle đã tải)_
-- **Tập tìm kiếm:** 50 ảnh = 5 lớp × 10 ảnh, trong `images/`, ID dạng `bus_03`.
-- **Truy vấn:** 10 ảnh = 5 lớp × 2 ảnh, nằm **ngoài** tập tìm kiếm, trong `queries/` (`q01` … `q10`).
-- **Đáp án:** 10 ảnh cùng lớp với truy vấn, ghi trong `ground_truth.csv` trước khi chạy so sánh.
-- Tên file gốc của từng ảnh: `sources.csv`.
 
-## Hai phương pháp
-| | Histogram màu | CLIP embedding |
-|---|---|---|
-| Biểu diễn | Tỉ lệ pixel theo ô màu HSV 8×4×4 = 128 chiều | Vector nội dung ảnh 512 chiều (CLIP ViT-B/32) |
-| So khớp | Histogram intersection | Cosine similarity |
-| Nắm bắt | Phân bố màu, độ sáng | Ngữ nghĩa: trong ảnh có vật gì |
+Nguồn: ExDark - Loh, Y. P., & Chan, C. S. (2019). Getting to know low-light images with
+the Exclusively Dark dataset. Computer Vision and Image Understanding, 178, 30-42.
+Link tải: (điền link Kaggle)
+
+    images/            50 ảnh tìm kiếm, 5 lớp x 10 ảnh, ID dạng bus_03
+    queries/           10 ảnh truy vấn, 5 lớp x 2 ảnh, nằm ngoài tập tìm kiếm
+    sources.csv        tên file gốc của từng ảnh
+    ground_truth.csv   ảnh đúng của từng truy vấn (các ảnh cùng lớp), ghi trước khi chạy
+
+
+## Phương pháp
+
+Histogram màu: tỉ lệ pixel theo ô màu HSV 8x4x4 (128 chiều), so khớp bằng histogram intersection.
+
+CLIP embedding: vector nội dung ảnh 512 chiều (CLIP ViT-B/32), so khớp bằng cosine similarity.
+
+Nếu ảnh truy vấn trùng một ảnh trong tập tìm kiếm, ảnh đó bị loại khỏi kết quả.
+
 
 ## Cách chạy
-```bash
-pip install torch transformers pillow numpy
 
-# 1. Chọn tay từ dataset/archive/: chép 10 ảnh/lớp vào images/<Lớp>/, 2 ảnh/lớp khác vào queries/<Lớp>/
-# 2. Đổi tên thành ID, tạo sources.csv + ground_truth.csv
-python core.py prepare
-# 3. Chạy 10 truy vấn bằng 2 phương pháp -> results.md
-python core.py
-# 4. Demo web tại http://localhost:8000
-python app.py
-```
+    pip install torch transformers pillow numpy
 
-| File | Vai trò |
-|---|---|
-| `core.py` | 2 phương pháp, tìm top-5, chuẩn bị dữ liệu, đánh giá Hit@5 |
-| `app.py` | Web server (thư viện chuẩn của Python) |
-| `index.html` | Giao diện: tải ảnh lên, xem top-5 của 2 phương pháp cạnh nhau |
+    python core.py prepare    # đổi tên ảnh thành ID, tạo sources.csv và ground_truth.csv
+    python core.py            # chạy 10 truy vấn với 2 phương pháp, ghi results.md
+    python app.py             # demo web tại http://localhost:8000
+
+Trước khi chạy prepare, chép ảnh đã chọn vào images/<Lớp>/ và queries/<Lớp>/.
+Lệnh prepare chỉ chạy một lần.
+
 
 ## Kết quả
-Bảng đầy đủ: [results.md](results.md). Hit@5 = số truy vấn có ≥ 1 ảnh đúng trong top 5, trên 10 truy vấn.
 
-| | Histogram màu | CLIP |
-|---|---|---|
-| Hit@5 | _/10 | _/10 |
+Hit@5 là số truy vấn có ít nhất một ảnh đúng trong 5 kết quả đầu, trên 10 truy vấn.
+Bảng chi tiết: results.md
 
-_Mốc tham chiếu: mỗi truy vấn có 10/50 ảnh đúng, nên chọn ngẫu nhiên 5 ảnh đã có ≈ 69% khả năng trúng ít nhất 1 ảnh. Vì vậy bảng ghi thêm số ảnh đúng trong top 5._
+    Histogram màu:   _/10
+    CLIP embedding:  _/10
 
-## Nhận xét – một trường hợp xử lý chưa tốt
-_(điền sau khi chạy: truy vấn nào, phương pháp nào sai, sai thành lớp nào, vì sao)_
+Mỗi truy vấn có 10/50 ảnh đúng, nên chọn ngẫu nhiên 5 ảnh đã có khoảng 69% khả năng
+trúng ít nhất một ảnh. Vì vậy bảng ghi thêm số ảnh đúng trong top 5.
+
+
+## Nhận xét - trường hợp xử lý chưa tốt
+
+(Truy vấn nào, phương pháp nào sai, sai thành lớp nào, vì sao)
