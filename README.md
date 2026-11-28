@@ -19,7 +19,7 @@ Histogram màu hay embedding CLIP tìm đúng loại phương tiện tốt hơn?
 
 Nguồn: ExDark - Loh, Y. P., & Chan, C. S. (2019). Getting to know low-light images with
 the Exclusively Dark dataset. Computer Vision and Image Understanding, 178, 30-42.
-Link tải: (điền link Kaggle)
+Link tải: https://www.kaggle.com/datasets/washingtongold/exdark-dataset
 
     images/            50 ảnh tìm kiếm, 5 lớp x 10 ảnh, ID dạng bus_03
     queries/           10 ảnh truy vấn, 5 lớp x 2 ảnh, nằm ngoài tập tìm kiếm
@@ -53,8 +53,9 @@ Lệnh prepare chỉ chạy một lần.
 Hit@5 là số truy vấn có ít nhất một ảnh đúng trong 5 kết quả đầu, trên 10 truy vấn.
 Bảng chi tiết: results.md
 
-    Histogram màu:   _/10
-    CLIP embedding:  _/10
+                     Hit@5    Số ảnh đúng trong top 5
+    Histogram màu:   8/10     18/50
+    CLIP embedding:  10/10    41/50
 
 Mỗi truy vấn có 10/50 ảnh đúng, nên chọn ngẫu nhiên 5 ảnh đã có khoảng 69% khả năng
 trúng ít nhất một ảnh. Vì vậy bảng ghi thêm số ảnh đúng trong top 5.
